@@ -1,0 +1,28 @@
+{
+  "name": "demo_socket_io_speck_tech",
+  "version": "0.1.0",
+  "description": "Socket.IO demo @ Speck&Tech",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server.js",
+    "dev": "DEBUG='demo:*' ./node_modules/nodemon/bin/nodemon.js ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidepedranz/demo_socket_io_speck_tech.git"
+  },
+  "author": "Davide Pedranz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidepedranz/demo_socket_io_speck_tech/issues"
+  },
+  "homepage": "https://github.com/davidepedranz/demo_socket_io_speck_tech#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "express": "^4.13.4",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
+}
