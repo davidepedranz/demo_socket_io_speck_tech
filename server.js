@@ -20,34 +20,30 @@ var httpServer = http.createServer(app);
 var io = socket().listen(httpServer);
 
 
-// cache
-var cache = null;
-
 // when a client connects -> push the last available data
 io.on('connect', function (socket) {
 
     // a new client connected
     debugClient('Connected: ' + socket.id);
 
-    // send him the last command
-    if (cache) {
-        socket.emit('command', cache);
-    }
-
     // log disconnections
-    socket.on('disconnect', function (params) {
+    socket.on('disconnect', function () {
         debugClient('Disconnected: ' + socket.id);
     });
 
     // very secure... more or less
     // whenever somebody pushes a new event, broadcast it to everybody
-    socket.on('command', function (command) {
-        cache = command;
-        debugCommand(command);
-        io.emit('command', command);
-    });
+    var forward = function (name) {
+        socket.on(name, function (message) {
+            debugCommand(name + ' -> ' + JSON.stringify(message));
+            io.emit(name, message);
+        });
+    };
 
+    // messages to forward to everybody
+    ['kitten', 'quote', 'speck', 'clean'].forEach(forward);
 });
+
 
 // run the server
 var httpPort = process.env.PORT || 8080;
